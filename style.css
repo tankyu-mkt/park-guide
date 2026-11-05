@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Meiryo", sans-serif;
+  line-height: 1.8;
+}
+
+header {
+  background-color: #2f7d4f;
+  color: white;
+  padding: 1rem;
+}
+
+header a {
+  color: white;
+  margin-right: 1rem;
+}
+
+main {
+  padding: 1rem;
+}
+
+footer {
+  background-color: #eeeeee;
+  text-align: center;
+  padding: 1rem;
+}
