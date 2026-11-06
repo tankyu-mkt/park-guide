@@ -1,7 +1,7 @@
 /* まずスマホ向けの設定 */
 body {
   margin: 0;
-  padding-bottom: 4rem; /* 下のヘッダーに隠れないための余白 */
+  padding-bottom: 4rem; /* 下のフッターに隠れないための余白 */
   font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Meiryo", sans-serif;
   font-size: 18px;
   line-height: 1.8;
@@ -12,22 +12,18 @@ h1 {
   line-height: 1.4;
 }
 
-/* ヘッダー：画面の一番下に固定 */
+/* ヘッダー：ページの一番上 */
 header {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
   background-color: #2f7d4f;
+  color: white;
+  padding: 1rem;
 }
 
 header a {
-  flex: 1;
-  text-align: center;
+  display: inline-block;
   color: white;
-  text-decoration: none;
-  padding: 1rem 0;
+  margin: .5rem 1.25rem 0 0;
+  padding: .25rem 0;
 }
 
 main {
@@ -45,10 +41,19 @@ button {
   min-width: 10rem;
 }
 
+/* フッター：画面の一番下に固定 */
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #eeeeee;
   text-align: center;
   padding: 1rem;
+}
+
+footer p {
+  margin: 0;
 }
 
 /* 画面が広いとき（パソコンなど）は、真ん中にせまく表示 */
