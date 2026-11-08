@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ゲーム | 公園の正しい使い方</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-title="title_game">
+  <header>
+    <div class="top">
+      <strong data-i18n="site">公園の正しい使い方</strong>
+      <label class="language">Language:
+        <select id="language">
+          <option value="ja">日本語</option>
+          <option value="en">English</option>
+          <option value="zh-CN">简体中文</option>
+          <option value="zh-TW">繁體中文</option>
+          <option value="ko">한국어</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="it">Italiano</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+        </select>
+      </label>
+    </div>
+    <a href="index.html" data-i18n="nav_home">ホーム</a>
+    <a href="rules.html" data-i18n="nav_rules">ルール</a>
+    <a href="game.html" data-i18n="nav_game">ゲーム</a>
+  </header>
+
+  <main>
+    <h1 data-i18n="game_title">ごみひろいゲーム</h1>
+    <p data-i18n="game_intro">30秒で、公園に落ちているごみをできるだけ多くタップしてひろおう！</p>
+
+    <p id="status">
+      <span data-i18n="game_time">残り時間</span>: <span id="time">30</span>
+      ／ <span data-i18n="game_score">スコア</span>: <span id="score">0</span>
+    </p>
+
+    <div id="field"></div>
+
+    <button id="start" data-i18n="game_start">スタート</button>
+
+    <div id="finish" hidden>
+      <h2 data-i18n="game_over">おしまい！</h2>
+      <p id="saveRow">
+        <label><span data-i18n="game_name">名前</span>: <input id="name" maxlength="12"></label>
+        <button id="save" data-i18n="game_save">ランキングに登録</button>
+      </p>
+    </div>
+
+    <h2 data-i18n="game_ranking">ランキング（この端末のベスト5）</h2>
+    <ol id="ranking"></ol>
+  </main>
+
+  <footer>
+    <p>© <span data-i18n="site">公園の正しい使い方</span></p>
+  </footer>
+
+  <script src="lang.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
