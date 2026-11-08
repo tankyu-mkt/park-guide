@@ -1,5 +1,10 @@
 // ごみひろいゲーム
 const GAME_SECONDS = 30;
+
+// グローバルランキングの保存先（FirebaseのデータベースURL）。
+// 空のままだと、グローバルランキングは表示されません（ローカルだけ動きます）。
+// 例: "https://park-guide-xxxxx-default-rtdb.asia-southeast1.firebasedatabase.app"
+const GLOBAL_DB_URL = "";
 const ITEMS = ["🥤", "🍌", "📰", "🍾", "🥫", "🧃"];
 
 const field = document.getElementById("field");
@@ -11,6 +16,8 @@ const saveRow = document.getElementById("saveRow");
 const nameInput = document.getElementById("name");
 const saveBtn = document.getElementById("save");
 const rankingEl = document.getElementById("ranking");
+const globalBox = document.getElementById("globalBox");
+const globalEl = document.getElementById("globalRanking");
 
 let score = 0;
 let timeLeft = GAME_SECONDS;
@@ -94,7 +101,48 @@ function showRanking() {
   });
 }
 
-function saveScore() {
+// グローバルランキング（みんなのベスト10）を読み込んで表示
+async function showGlobalRanking() {
+  if (!GLOBAL_DB_URL) {
+    return;
+  }
+  globalBox.hidden = false;
+  try {
+    const res = await fetch(GLOBAL_DB_URL + "/scores.json?orderBy=%22score%22&limitToLast=10");
+    if (!res.ok) {
+      throw new Error("load failed");
+    }
+    const data = await res.json();
+    const list = Object.values(data || {});
+    list.sort(function (a, b) { return b.score - a.score; });
+    globalEl.innerHTML = "";
+    list.forEach(function (r) {
+      const li = document.createElement("li");
+      li.textContent = r.name + " — " + r.score;
+      globalEl.appendChild(li);
+    });
+  } catch (e) {
+    globalEl.innerHTML = "";
+    const li = document.createElement("li");
+    li.textContent = text("game_global_error");
+    globalEl.appendChild(li);
+  }
+}
+
+// スコアをグローバルランキングに送る
+async function sendGlobalScore(name, score) {
+  if (!GLOBAL_DB_URL) {
+    return;
+  }
+  try {
+    await fetch(GLOBAL_DB_URL + "/scores.json", {
+      method: "POST",
+      body: JSON.stringify({ name: name, score: score })
+    });
+  } catch (e) {}
+}
+
+async function saveScore() {
   const name = nameInput.value.trim() || text("game_anon");
   const list = loadRanking();
   list.push({ name: name, score: score });
@@ -102,8 +150,11 @@ function saveScore() {
   saveRanking(list.slice(0, 5));
   showRanking();
   saveRow.hidden = true;
+  await sendGlobalScore(name, score);
+  showGlobalRanking();
 }
 
 startBtn.onclick = startGame;
 saveBtn.onclick = saveScore;
 showRanking();
+showGlobalRanking();
