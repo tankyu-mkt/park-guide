@@ -64,3 +64,21 @@ footer p {
     padding: 2rem 1rem;
   }
 }
+
+/* ヘッダーの上の段：サイト名（左）と言語の選択（右） */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.language {
+  font-size: .9rem;
+}
+
+select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: .25rem;
+}
