@@ -1,6 +1,6 @@
 // フィードバックの送信：FormSubmit（無料のメール送信サービス）を使って、管理者にメールで届けます。
 // 画面は移動せず、送信できたら「ありがとうございます！」と表示します。
-const SEND_TO = "akisuteno815@gmail.com";
+const SEND_TO = "akisuteno1508@gmail.com";
 const ENDPOINT = "https://formsubmit.co/ajax/" + SEND_TO;
 
 const form = document.getElementById("fbForm");
