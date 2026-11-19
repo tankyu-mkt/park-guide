@@ -9,10 +9,18 @@ const messageEl = document.getElementById("message");
 const sendBtn = document.getElementById("send");
 const statusEl = document.getElementById("status");
 
+// 文章が見つからないときの予備（lang.js が古くても、表示が消えないように）
+const FALLBACK = {
+  fb_thanks: "ありがとうございます！送信しました。",
+  fb_error: "送信できませんでした。しばらくしてからもう一度お試しください。"
+};
+
 // メッセージを今の言語で表示（言語を切り替えても追従する）
 function show(key) {
+  const now = translations[document.documentElement.lang] || {};
+  const ja = translations.ja || {};
   statusEl.dataset.i18n = key;
-  statusEl.textContent = translations[document.documentElement.lang][key];
+  statusEl.textContent = now[key] || ja[key] || FALLBACK[key] || key;
 }
 
 form.onsubmit = async function (e) {
@@ -23,7 +31,8 @@ form.onsubmit = async function (e) {
   }
 
   sendBtn.disabled = true;
-  statusEl.textContent = "";
+  statusEl.dataset.i18n = "";
+  statusEl.textContent = "…"; // 送信中
   try {
     const res = await fetch(ENDPOINT, {
       method: "POST",
