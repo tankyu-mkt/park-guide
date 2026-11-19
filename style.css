@@ -1,0 +1,218 @@
+/* まずスマホ向けの設定 */
+body {
+  margin: 0;
+  padding-bottom: 4rem; /* 下のフッターに隠れないための余白 */
+  font-family: "Hiragino Maru Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", "Meiryo", "Noto Sans CJK JP", sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+h1 {
+  font-size: 1.75rem;
+  line-height: 1.4;
+}
+
+/* ヘッダー：ページの一番上 */
+header {
+  background-color: #2f7d4f;
+  color: white;
+  padding: 1rem;
+}
+
+header a {
+  display: inline-block;
+  color: white;
+  margin: .5rem 1.25rem 0 0;
+  padding: .25rem 0;
+}
+
+main {
+  padding: 1rem;
+}
+
+li {
+  margin-bottom: .75rem;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1.1rem;
+  padding: .9rem 2rem;
+  min-width: 10rem;
+}
+
+/* フッター：画面の一番下に固定 */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #eeeeee;
+  text-align: center;
+  padding: 1rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* 画面が広いとき（パソコンなど）は、真ん中にせまく表示 */
+@media (min-width: 700px) {
+  main {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+}
+
+/* ヘッダーの上の段：サイト名（左）と言語の選択（右） */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.language {
+  font-size: .9rem;
+}
+
+select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: .25rem;
+}
+
+/* ボタンの間をあける */
+button {
+  margin: .5rem .5rem .5rem 0;
+}
+
+/* ゲームのページ */
+#status {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#field {
+  position: relative;
+  height: 42vh;
+  min-height: 240px;
+  margin: 1rem 0;
+  overflow: hidden;
+  background-color: #e3f3e7;
+  border: 2px solid #2f7d4f;
+  border-radius: 8px;
+  touch-action: manipulation;
+}
+
+.litter {
+  position: absolute;
+  padding: .25rem;
+  font-size: 2.75rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#finish input {
+  width: 9rem;
+  padding: .4rem;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/* ゲーム一覧 */
+.gamecards {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.gamecard {
+  display: block;
+  padding: 1rem 1.25rem;
+  color: inherit;
+  text-decoration: none;
+  background-color: #f4fbf6;
+  border: 2px solid #2f7d4f;
+  border-radius: 12px;
+}
+
+.gamecard .emoji { font-size: 2.5rem; }
+.gamecard h2 { margin: .25rem 0; }
+.gamecard p { margin: 0 0 .5rem; color: #4a5a52; }
+.gamecard .play {
+  display: inline-block;
+  padding: .3rem 1.25rem;
+  color: white;
+  font-weight: bold;
+  background-color: #2f7d4f;
+  border-radius: 999px;
+}
+
+/* パークランナー */
+#stage {
+  position: relative;
+  max-width: 600px;
+  margin: 1rem 0;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(20, 40, 30, .45);
+  border-radius: 12px;
+}
+
+#overlay[hidden] { display: none; }
+#overlay h2 { margin: 0 0 .25rem; font-size: 1.6rem; }
+#overlay p { margin: .25rem 0; font-size: 1.1rem; }
+
+/* フィードバックのフォーム */
+form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+form select,
+form textarea,
+form input {
+  display: block;
+  width: 100%;
+  margin-top: .25rem;
+  padding: .6rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: normal;
+  box-sizing: border-box;
+}
+
+form button {
+  margin-top: 1.25rem;
+}
+
+#status {
+  font-weight: bold;
+}
