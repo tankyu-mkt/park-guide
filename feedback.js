@@ -37,14 +37,22 @@ form.onsubmit = async function (e) {
         lang: document.documentElement.lang
       })
     });
-    const data = await res.json();
-    if (!res.ok || !(data.success === true || data.success === "true")) {
-      throw new Error("send failed");
+    // 返事がJSONでない場合もあるので、いったん文字として受け取る
+    const text = await res.text();
+    let data = {};
+    try { data = JSON.parse(text); } catch (e) {}
+
+    if (res.ok && (data.success === true || data.success === "true")) {
+      show("fb_thanks");
+      form.reset();
+    } else {
+      throw new Error(data.message || ("HTTP " + res.status));
     }
-    show("fb_thanks");
-    form.reset();
   } catch (err) {
+    console.error("フィードバックの送信エラー:", err);
     show("fb_error");
+    // 原因を探しやすいように、理由をカッコで添える（不要になったら消してOK）
+    statusEl.textContent += " (" + (err.message || err) + ")";
   }
   sendBtn.disabled = false;
 };
