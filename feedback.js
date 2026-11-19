@@ -1,10 +1,12 @@
-// フィードバックの送信：GitHubの「Issues」に投稿する形です
-// このサイトのGitHubリポジトリ（ユーザー名/リポジトリ名）。名前を変えたら、ここも直してください。
-const REPO = "tankyu-mkt/park-guide";
+// フィードバックの送信：FormSubmit（無料のメール送信サービス）を使って、管理者にメールで届けます。
+// 画面は移動せず、送信できたら「ありがとうございます！」と表示します。
+const SEND_TO = "akisuteno815@gmail.com";
+const ENDPOINT = "https://formsubmit.co/ajax/" + SEND_TO;
 
 const form = document.getElementById("fbForm");
 const typeEl = document.getElementById("type");
 const messageEl = document.getElementById("message");
+const sendBtn = document.getElementById("send");
 const statusEl = document.getElementById("status");
 
 // メッセージを今の言語で表示（言語を切り替えても追従する）
@@ -13,25 +15,36 @@ function show(key) {
   statusEl.textContent = translations[document.documentElement.lang][key];
 }
 
-form.onsubmit = function (e) {
+form.onsubmit = async function (e) {
   e.preventDefault();
   const message = messageEl.value.trim();
   if (!message) {
     return;
   }
-  const type = typeEl.value;
-  const title = "[" + type + "] " + message.slice(0, 40);
-  const body = message + "\n\n(lang: " + document.documentElement.lang + ")";
-  const url = "https://github.com/" + REPO + "/issues/new" +
-    "?title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
 
-  // 新しいタブでGitHubの投稿画面を開く（開けなければ、このタブで開く）
-  const w = window.open(url, "_blank");
-  if (w) {
-    w.opener = null;
-  } else {
-    location.href = url;
+  sendBtn.disabled = true;
+  statusEl.textContent = "";
+  try {
+    const res = await fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        _subject: "[公園サイト] " + typeEl.value,
+        _captcha: "false",
+        _template: "table",
+        type: typeEl.value,
+        message: message,
+        lang: document.documentElement.lang
+      })
+    });
+    const data = await res.json();
+    if (!res.ok || !(data.success === true || data.success === "true")) {
+      throw new Error("send failed");
+    }
+    show("fb_thanks");
+    form.reset();
+  } catch (err) {
+    show("fb_error");
   }
-  show("fb_opened");
-  form.reset();
+  sendBtn.disabled = false;
 };
